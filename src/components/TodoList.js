@@ -1,27 +1,42 @@
 import React, { useState } from "react";
 
 const TodoList = () => {
-  const [todo, setTodo] = useState([]); //an empty array is initialized, todo is a state var, setTodos is a function
+  const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
 
   const addTodo = () => {
     if (newTodo.trim()) {
-      setTodo([...todo, newTodo]); // Spread operator('...'), hold the value of todo array and new values from newTodo
+      setTodos([...todos, { text: newTodo, completed: false }]);
       setNewTodo("");
     }
   };
+
+  const toggleTodo = (index) => {
+    const updatedTodos = todos.map((todo, i) =>
+      i === index ? { ...todo, completed: !todo.completed } : todo
+    );
+    setTodos(updatedTodos);
+  };
+
   return (
     <div>
-      <h2>My new list</h2>
+      <h2>My List</h2>
       <input
         type="text"
         value={newTodo}
         onChange={(e) => setNewTodo(e.target.value)}
       />
-      <button onClick={addTodo}>Add item</button>
+      <button onClick={addTodo}>Add Todo</button>
       <ul>
-        {todo.map((todo, index) => (
-          <li key={index}>{todo}</li>
+        {todos.map((todo, index) => (
+          <li key={index}>
+            <input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() => toggleTodo(index)}
+            />
+            {todo.text}
+          </li>
         ))}
       </ul>
     </div>

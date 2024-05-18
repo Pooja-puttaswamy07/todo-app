@@ -27,7 +27,10 @@
   }
   
   li {
-    text-align: left;
+    text-align: center;
     margin: 5px 0;
   }
-  
+  p{
+    text-align: center;
+    margin: 5px 0;
+  }
